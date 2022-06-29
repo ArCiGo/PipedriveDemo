@@ -24,10 +24,9 @@ namespace PipedriveDemo.UI.PageObjectModel.Components.DealsItem
         // Actions
         public bool CheckTitle(string dealTitle)
         {
-            var titleHeadH1 = wait.Until(ExpectedConditions.ElementIsVisible(TitleHeadH1));
-            var title = titleHeadH1.Text;
+            var titleHeadH1 = wait.Until(ExpectedConditions.ElementIsVisible(TitleHeadH1)).Text;
 
-            if (title.Contains(dealTitle))
+            if (titleHeadH1.Contains(dealTitle))
                 return true;
 
             return false;

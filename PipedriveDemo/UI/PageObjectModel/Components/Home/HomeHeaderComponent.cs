@@ -22,8 +22,7 @@ namespace PipedriveDemo.UI.PageObjectModel.Components.Home
         // Actions
         public PipedriveDemoLoginPage ClickOnLoginLink()
         {
-            var loginLink = wait.Until(ExpectedConditions.ElementIsVisible(LoginLink));
-            loginLink.Click();
+            wait.Until(ExpectedConditions.ElementIsVisible(LoginLink)).Click();
 
             return new PipedriveDemoLoginPage(Driver);
         }

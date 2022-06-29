@@ -10,6 +10,7 @@ namespace PipedriveDemo.UI.PageObjectModel.Components.DealsDashboard
     {
         // Variables & Constants
         private readonly WebDriverWait wait;
+        private string dealContactPerson;
 
         // Elements
         private By AddDealButton => By.XPath("//button[@data-test='pipeline-add-deal']");
@@ -22,6 +23,9 @@ namespace PipedriveDemo.UI.PageObjectModel.Components.DealsDashboard
         private By EmailInputField => By.XPath("//div[contains(text(), 'Email')]/following-sibling::div/descendant::input");
         private By SaveDealButton => By.CssSelector("button[data-test='add-modals-save']");
         private By DealDraggableItems => By.XPath("//div[@draggable]/descendant::a[contains(@class, 'sc-kjEcyX')]/span");
+        private By ContactPersonError => By.XPath("//div[contains(text(), 'Contact person')]/following-sibling::div/descendant::div[@class = 'cui5-input__error-message']");
+        private By OrganizationError => By.XPath("//div[contains(text(), 'Organization')]/following-sibling::div/descendant::div[@class = 'cui5-input__error-message']");
+        private By TitleError => By.XPath("//div[contains(text(), 'Title')]/following-sibling::div/descendant::div[@class = 'cui5-input__error-message']");
 
         // Constructor
         public DealsDashboardBodyComponent(IWebDriver driver) : base(driver)
@@ -38,6 +42,8 @@ namespace PipedriveDemo.UI.PageObjectModel.Components.DealsDashboard
 
         public void FillAddDealForm(DealModel deal)
         {
+            dealContactPerson = deal.ContactPerson;
+
             EnterContactPerson(deal.ContactPerson);
             EnterOrganization(deal.Organization);
             EnterTitle(deal.Title);
@@ -107,10 +113,10 @@ namespace PipedriveDemo.UI.PageObjectModel.Components.DealsDashboard
 
         public void ClickOnSave()
         {
-            var saveDealButton = wait.Until(ExpectedConditions.ElementIsVisible(SaveDealButton));
-            saveDealButton.Click();
+            wait.Until(ExpectedConditions.ElementIsVisible(SaveDealButton)).Click();
 
-            wait.Until(ExpectedConditions.InvisibilityOfElementLocated(By.XPath("//div[@data-test='add-modal']")));
+            if(!String.IsNullOrEmpty(dealContactPerson) || !String.IsNullOrWhiteSpace(dealContactPerson))
+                wait.Until(ExpectedConditions.InvisibilityOfElementLocated(By.XPath("//div[@data-test='add-modal']")));
         }
 
         public bool DealWasCreated(string dealTitle)
@@ -141,6 +147,22 @@ namespace PipedriveDemo.UI.PageObjectModel.Components.DealsDashboard
             }
 
             return new PipedriveDemoDealsItemPage(Driver);
+        }
+
+        public List<string> FormErrors()
+        {
+            ClickOnSave();
+
+            var contactPersonError = wait.Until(ExpectedConditions.ElementIsVisible(ContactPersonError)).Text;
+            var organizationError = wait.Until(ExpectedConditions.ElementIsVisible(OrganizationError)).Text;
+            var titleError = wait.Until(ExpectedConditions.ElementIsVisible(TitleError)).Text;
+
+            return new List<string>()
+            {
+                contactPersonError,
+                organizationError,
+                titleError
+            };
         }
     }
 }

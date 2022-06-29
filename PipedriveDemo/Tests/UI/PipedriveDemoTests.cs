@@ -20,12 +20,7 @@ namespace PipedriveDemo.Tests.UI
         [Order(1)]
         public void CreateANewDeal(DealModel deal, string email, string password)
         {
-            pdHomePage = new PipedriveDemoHomePage(Driver);
-            pdLoginPage = new PipedriveDemoLoginPage(Driver);
-            pdDealsDashPage = new PipedriveDemoDealsDashboardPage(Driver);
-            pdDealsItemPage = new PipedriveDemoDealsItemPage(Driver);
-
-            pdHomePage.GoTo(baseURL);
+            InitializeObjects();
             pdHomePage.ClickOnLoginLink();
 
             pdLoginPage.FillLoginForm(email, password);
@@ -40,8 +35,36 @@ namespace PipedriveDemo.Tests.UI
             // It is always a good idea to delete the data we created to avoid flaky tests
             pdDealsDashPage.ClickOnDeal(deal.Title);
             Assert.True(pdDealsItemPage.CheckTitle(deal.Title));
+
             pdDealsItemPage.DeleteDeal();
             Assert.True(pdDealsItemPage.DealWasDeleted());
+        }
+
+        [Test(Description = "It doesn't create a new deal"), Category("UI")]
+        [TestCase("", "")]
+        [Order(2)]
+        public void CreateAnEmptyDealShouldThrowErrors(string email, string password)
+        {
+            InitializeObjects();
+            pdHomePage.ClickOnLoginLink();
+
+            pdLoginPage.FillLoginForm(email, password);
+            pdLoginPage.Login();
+
+            pdDealsDashPage.ClickOnAddDeal();
+            pdDealsDashPage.ClickOnSave();
+            CollectionAssert.AreEqual(Mocks.errors, pdDealsDashPage.FormErrors());
+        }
+
+        // Extracting code
+        private void InitializeObjects()
+        {
+            pdHomePage = new PipedriveDemoHomePage(Driver);
+            pdLoginPage = new PipedriveDemoLoginPage(Driver);
+            pdDealsDashPage = new PipedriveDemoDealsDashboardPage(Driver);
+            pdDealsItemPage = new PipedriveDemoDealsItemPage(Driver);
+
+            pdHomePage.GoTo(baseURL);
         }
     }
 }

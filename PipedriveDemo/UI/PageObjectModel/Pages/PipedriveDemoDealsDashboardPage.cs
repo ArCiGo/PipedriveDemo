@@ -40,6 +40,11 @@ namespace PipedriveDemo.UI.PageObjectModel.Pages
         {
             return dealsDashboardBodyComponent.ClickOnDeal(dealTitle);
         }
+
+        public List<string> FormErrors()
+        {
+            return dealsDashboardBodyComponent.FormErrors();
+        }
     }
 }
 

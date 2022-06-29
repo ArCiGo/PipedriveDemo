@@ -47,6 +47,13 @@ namespace PipedriveDemo.Tests.Data
                 }, "", ""
             },
         };
+
+        public static List<string> errors = new List<string>()
+        {
+            "A person or organization is required",
+            "A person or organization is required",
+            "Title is required"
+        };
     }
 }
 
