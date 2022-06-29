@@ -4,13 +4,13 @@ using PipedriveDemo.UI.PageObjectModel.Utilities;
 
 namespace PipedriveDemo.UI.PageObjectModel.Pages
 {
-    public class PipedriveDealsDashboardPage : BasePage
+    public class PipedriveDemoDealsDashboardPage : BasePage
     {
         // Variables & Constants
         private readonly DealsDashboardBodyComponent dealsDashboardBodyComponent;
 
         // Constructor
-        public PipedriveDealsDashboardPage(IWebDriver driver) : base(driver)
+        public PipedriveDemoDealsDashboardPage(IWebDriver driver) : base(driver)
         {
             dealsDashboardBodyComponent = new DealsDashboardBodyComponent(driver);
         }
@@ -29,6 +29,16 @@ namespace PipedriveDemo.UI.PageObjectModel.Pages
         public void ClickOnSave()
         {
             dealsDashboardBodyComponent.ClickOnSave();
+        }
+
+        public bool DealWasCreated(string dealTitle)
+        {
+            return dealsDashboardBodyComponent.DealWasCreated(dealTitle);
+        }
+
+        public PipedriveDemoDealsItemPage ClickOnDeal(string dealTitle)
+        {
+            return dealsDashboardBodyComponent.ClickOnDeal(dealTitle);
         }
     }
 }

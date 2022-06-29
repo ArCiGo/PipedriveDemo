@@ -3,13 +3,13 @@ using PipedriveDemo.UI.PageObjectModel.Components.Home;
 
 namespace PipedriveDemo.UI.PageObjectModel.Pages
 {
-    public class PipedriveHomePage : BasePage
+    public class PipedriveDemoHomePage : BasePage
     {
         // Variables & Constants
         private readonly HomeHeaderComponent homeHeaderComponent;
 
         // Constructor
-        public PipedriveHomePage(IWebDriver driver) : base(driver)
+        public PipedriveDemoHomePage(IWebDriver driver) : base(driver)
         {
             homeHeaderComponent = new HomeHeaderComponent(driver);
         }
@@ -20,9 +20,9 @@ namespace PipedriveDemo.UI.PageObjectModel.Pages
             Driver.Navigate().GoToUrl(URL);
         }
 
-        public PipedriveLoginPage Login()
+        public PipedriveDemoLoginPage ClickOnLoginLink()
         {
-            return homeHeaderComponent.Login();
+            return homeHeaderComponent.ClickOnLoginLink();
         }
     }
 }

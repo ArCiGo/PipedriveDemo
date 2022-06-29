@@ -1,5 +1,6 @@
 ﻿using OpenQA.Selenium;
 using OpenQA.Selenium.Chrome;
+using OpenQA.Selenium.Firefox;
 
 namespace PipedriveDemo.Tests.UI.AutomationResources
 {
@@ -11,6 +12,8 @@ namespace PipedriveDemo.Tests.UI.AutomationResources
             {
                 case BrowserType.Chrome:
                     return GetChromeDriver();
+                case BrowserType.Firefox:
+                    return GetFirefoxDriver();
                 default:
                     ArgumentException ex = new ArgumentException("No such browser exists!");
                     throw ex;
@@ -23,6 +26,11 @@ namespace PipedriveDemo.Tests.UI.AutomationResources
             options.AddArguments("--disable-notifications");
 
             return new ChromeDriver(options);
+        }
+
+        private IWebDriver GetFirefoxDriver()
+        {
+            return new FirefoxDriver();
         }
     }
 }

@@ -1,5 +1,6 @@
 ﻿using OpenQA.Selenium;
 using OpenQA.Selenium.Support.UI;
+using PipedriveDemo.UI.PageObjectModel.Pages;
 using PipedriveDemo.UI.PageObjectModel.Utilities;
 using SeleniumExtras.WaitHelpers;
 
@@ -20,17 +21,19 @@ namespace PipedriveDemo.UI.PageObjectModel.Components.DealsDashboard
         private By PhoneInputField => By.XPath("//div[contains(text(), 'Phone')]/following-sibling::div/descendant::input");
         private By EmailInputField => By.XPath("//div[contains(text(), 'Email')]/following-sibling::div/descendant::input");
         private By SaveDealButton => By.CssSelector("button[data-test='add-modals-save']");
+        private By DealDraggableItems => By.XPath("//div[@draggable]/descendant::a[contains(@class, 'sc-kjEcyX')]/span");
 
         // Constructor
         public DealsDashboardBodyComponent(IWebDriver driver) : base(driver)
         {
-            wait = new WebDriverWait(driver, TimeSpan.FromSeconds(5));
+            wait = new WebDriverWait(driver, TimeSpan.FromSeconds(10));
         }
 
         // Actions
         public void ClickOnAddDeal()
         {
-            Driver.FindElement(AddDealButton).Click();
+            var addDealButton = wait.Until(ExpectedConditions.ElementIsVisible(AddDealButton));
+            addDealButton.Click();
         }
 
         public void FillAddDealForm(DealModel deal)
@@ -61,7 +64,8 @@ namespace PipedriveDemo.UI.PageObjectModel.Components.DealsDashboard
         private void EnterTitle(string title)
         {
             var titleInputField = wait.Until(ExpectedConditions.ElementIsVisible(TitleInputFIeld));
-            titleInputField.Clear();
+            var js = (IJavaScriptExecutor)Driver;
+            js.ExecuteScript("arguments[0].value = ''", titleInputField);
             titleInputField.SendKeys(title);
         }
 
@@ -69,33 +73,74 @@ namespace PipedriveDemo.UI.PageObjectModel.Components.DealsDashboard
         {
             var valueInputField = wait.Until(ExpectedConditions.ElementIsVisible(ValueInputField));
             valueInputField.Clear();
-            valueInputField.SendKeys(value);
+
+            if(!String.IsNullOrEmpty(value))
+                valueInputField.SendKeys(value);
         }
 
         private void EnterExpectedCloseDate(string date)
         {
             var expectedCloseDateInputField = wait.Until(ExpectedConditions.ElementIsVisible(ExpectedCloseDateInputFIeld));
             expectedCloseDateInputField.Clear();
-            expectedCloseDateInputField.SendKeys(date);
+
+            if(!String.IsNullOrEmpty(date))
+                expectedCloseDateInputField.SendKeys(date);
         }
 
-        private void EnterPhoneInput(string date)
+        private void EnterPhoneInput(string phone)
         {
             var phoneInputField = wait.Until(ExpectedConditions.ElementIsVisible(PhoneInputField));
             phoneInputField.Clear();
-            phoneInputField.SendKeys(date);
+
+            if(!String.IsNullOrEmpty(phone))
+                phoneInputField.SendKeys(phone);
         }
 
-        private void EnterEmailInput(string date)
+        private void EnterEmailInput(string email)
         {
             var emailInputField = wait.Until(ExpectedConditions.ElementIsVisible(EmailInputField));
             emailInputField.Clear();
-            emailInputField.SendKeys(date);
-        }
+
+            if(!String.IsNullOrEmpty(email))
+                emailInputField.SendKeys(email);
+        }        
 
         public void ClickOnSave()
         {
-            Driver.FindElement(SaveDealButton).Click();
+            var saveDealButton = wait.Until(ExpectedConditions.ElementIsVisible(SaveDealButton));
+            saveDealButton.Click();
+
+            wait.Until(ExpectedConditions.InvisibilityOfElementLocated(By.XPath("//div[@data-test='add-modal']")));
+        }
+
+        public bool DealWasCreated(string dealTitle)
+        {
+            var dealDraggableItems = wait.Until(ExpectedConditions.VisibilityOfAllElementsLocatedBy(DealDraggableItems));
+
+            foreach (var item in dealDraggableItems)
+            {
+                if (item.Text.Contains(dealTitle))
+                {
+                    return true;
+                }
+            }
+
+            return false;
+        }
+
+        public PipedriveDemoDealsItemPage ClickOnDeal(string dealTitle)
+        {
+            var dealDraggableItems = wait.Until(ExpectedConditions.VisibilityOfAllElementsLocatedBy(DealDraggableItems));
+
+            foreach (var item in dealDraggableItems)
+            {
+                if (item.Text.Contains(dealTitle))
+                {
+                    item.Click();
+                }
+            }
+
+            return new PipedriveDemoDealsItemPage(Driver);
         }
     }
 }

@@ -42,12 +42,11 @@ namespace PipedriveDemo.UI.PageObjectModel.Components.Login
             passwordInputField.SendKeys(password);
         }
 
-        public PipedriveDealsDashboardPage Login()
+        public PipedriveDemoDealsDashboardPage Login()
         {
-            var loginButton = wait.Until(ExpectedConditions.ElementIsVisible(LoginButton));
-            loginButton.Click();
+            Driver.FindElement(LoginButton).Click();
 
-            return new PipedriveDealsDashboardPage(Driver);
+            return new PipedriveDemoDealsDashboardPage(Driver);
         }
     }
 }

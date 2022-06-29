@@ -34,8 +34,7 @@ namespace PipedriveDemo.Tests.UI
             test = extent.CreateTest(TestContext.CurrentContext.Test.Name);
 
             var factory = new WebDriverFactory();
-
-            Driver = factory.GetDriver(BrowserType.Chrome);
+            Driver = factory.GetDriver(BrowserType.Firefox);
             Wait = new WebDriverWait(Driver, TimeSpan.FromSeconds(10));
             Driver.Manage().Window.Maximize();
         }
@@ -47,7 +46,6 @@ namespace PipedriveDemo.Tests.UI
             {
                 var outcome = TestContext.CurrentContext.Result.Outcome;
                 var message = TestContext.CurrentContext.Result.Message;
-
                 RecordTestOutcomeToExtent(test, outcome, message);
 
                 StopBrowser();

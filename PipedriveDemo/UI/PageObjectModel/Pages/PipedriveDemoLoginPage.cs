@@ -3,13 +3,13 @@ using PipedriveDemo.UI.PageObjectModel.Components.Login;
 
 namespace PipedriveDemo.UI.PageObjectModel.Pages
 {
-    public class PipedriveLoginPage : BasePage
+    public class PipedriveDemoLoginPage : BasePage
     {
         // Variables & Constants
         private readonly LoginBodyComponent loginBodyComponent;
 
         // Constructor
-        public PipedriveLoginPage(IWebDriver driver) : base(driver)
+        public PipedriveDemoLoginPage(IWebDriver driver) : base(driver)
         {
             loginBodyComponent = new LoginBodyComponent(driver);
         }
@@ -20,7 +20,7 @@ namespace PipedriveDemo.UI.PageObjectModel.Pages
             loginBodyComponent.FillLoginForm(email, password);
         }
 
-        public PipedriveDealsDashboardPage Login()
+        public PipedriveDemoDealsDashboardPage Login()
         {
             return loginBodyComponent.Login();
         }

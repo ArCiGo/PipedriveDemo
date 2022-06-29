@@ -19,6 +19,8 @@
     <PackageReference Include="DotNetSeleniumExtras.WaitHelpers" Version="3.11.0" />
     <PackageReference Include="Selenium.WebDriver.ChromeDriver" Version="103.0.5060.5300" />
     <PackageReference Include="ExtentReports" Version="4.1.0" />
+    <PackageReference Include="Selenium.WebDriver.GeckoDriver" Version="0.31.0.1" />
+    <PackageReference Include="Bogus" Version="34.0.2" />
   </ItemGroup>
 
   <ItemGroup>
@@ -39,6 +41,10 @@
     <None Remove="Tests\UI\AutomationResources\" />
     <None Remove="Tests\Utilities\" />
     <None Remove="ExtentReports" />
+    <None Remove="Selenium.WebDriver.GeckoDriver" />
+    <None Remove="Bogus" />
+    <None Remove="Tests\Data\" />
+    <None Remove="UI\PageObjectModel\Components\DealsItem\" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="UI\" />
@@ -53,5 +59,7 @@
     <Folder Include="Tests\UI\" />
     <Folder Include="Tests\UI\AutomationResources\" />
     <Folder Include="Tests\Utilities\" />
+    <Folder Include="Tests\Data\" />
+    <Folder Include="UI\PageObjectModel\Components\DealsItem\" />
   </ItemGroup>
 </Project>

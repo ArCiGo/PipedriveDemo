@@ -16,16 +16,16 @@ namespace PipedriveDemo.UI.PageObjectModel.Components.Home
         // Constructor
         public HomeHeaderComponent(IWebDriver driver) : base(driver)
         {
-            wait = new WebDriverWait(driver, TimeSpan.FromSeconds(5));
+            wait = new WebDriverWait(driver, TimeSpan.FromSeconds(10));
         }
 
         // Actions
-        public PipedriveLoginPage Login()
+        public PipedriveDemoLoginPage ClickOnLoginLink()
         {
             var loginLink = wait.Until(ExpectedConditions.ElementIsVisible(LoginLink));
             loginLink.Click();
 
-            return new PipedriveLoginPage(Driver);
+            return new PipedriveDemoLoginPage(Driver);
         }
     }
 }
