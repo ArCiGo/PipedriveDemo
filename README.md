@@ -4,8 +4,11 @@ A technical assessment for the **Software Engineer in Test** position.
 
 ## The project 💻
 
-The following project was made using *C#*, *NUnit*, *Selenium* and *Extent Reports*. Review [here]() the assessment proposed.
-Review the overall test plan [here]() and [here]() the test plan for the automation framework. Bug report can also found [here]()
+The following project was made using *C#*, *NUnit*, *Selenium* and *Extent Reports*. This was the assessment.-
+
+![UI Report Sample](./Assessment.png)
+
+Review the overall test plan [here](https://github.com/ArCiGo/PipedriveDemo/blob/master/Assessment.%20Test%20Plan%20(Pipedrive).pdf), and [here]() the test plan for the automation framework. Bug report can also be found [here](https://github.com/ArCiGo/PipedriveDemo/blob/master/Assessment.%20Bug%20reports%20(Pipedrive).pdf)
 
 ## Tools ⚙️
 
@@ -43,7 +46,7 @@ Review the overall test plan [here]() and [here]() the test plan for the automat
 
 I developed the code using a Mac, but it should work on a PC.
 
-> .NET Core 3.1, or higher, is needed to run the project.
+> .NET Core 3.1, or higher, is required to run the project.
 
 The following steps can be executed using a terminal (I use [hyper](https://hyper.is/)).
 
@@ -53,7 +56,9 @@ The following steps can be executed using a terminal (I use [hyper](https://hype
 git clone https://github.com/ArCiGo/PipedriveDemo
 ```
 
-2. Install the packages
+2. In the **Data/Mocks.cs** class, update the lines 25, 34 and 47 with your email and password (respectively). In the **PipedriveDemoTests.cs** class, update the line 44 with your email and password (repectively).
+
+3. Install the packages
 ```shell
 dotnet build
 ```
@@ -72,7 +77,7 @@ dotnet test
 dotnet test --filter TestCategory=UI
 ```
 
-When you execute the tests, new folders are generated at the workspace root (*UIReports*). 
-Inside of these folders, you are going to see the index.html reports (you can open them using your favorite browser).
+When you execute the tests, a new folder is generated at the workspace root (*UIReports*). Inside of the folder, you will notice a new folder with the report (index.html). You can open them using your favorite browser.
 
-![UI Report Sample](./APIReport.png)
+![UI Report Sample](./Img_Report_01.png)
+![UI Report Sample](./Img_Report_02.png)
