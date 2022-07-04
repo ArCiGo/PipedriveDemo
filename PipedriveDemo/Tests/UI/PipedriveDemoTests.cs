@@ -16,7 +16,7 @@ namespace PipedriveDemo.Tests.UI
 
         // Tests
         [Test(Description = "It creates a new deal"), Category("UI")]
-        [TestCaseSource(typeof(Mocks), nameof(Mocks.testCases))]
+        [TestCaseSource(typeof(Mocks), nameof(Mocks.validDataObjects))]
         [Order(1)]
         public void CreateANewDeal(DealModel deal, string email, string password)
         {
@@ -41,7 +41,7 @@ namespace PipedriveDemo.Tests.UI
         }
 
         [Test(Description = "It doesn't create a new deal"), Category("UI")]
-        [TestCase("", "")]
+        [TestCase("", "")]  // here goes your email and password
         [Order(2)]
         public void CreateAnEmptyDealShouldThrowErrors(string email, string password)
         {
@@ -53,7 +53,7 @@ namespace PipedriveDemo.Tests.UI
 
             pdDealsDashPage.ClickOnAddDeal();
             pdDealsDashPage.ClickOnSave();
-            CollectionAssert.AreEqual(Mocks.errors, pdDealsDashPage.FormErrors());
+            CollectionAssert.AreEqual(Mocks.mandatoryErrors, pdDealsDashPage.MandatoryFormErrors());
         }
 
         // Extracting code

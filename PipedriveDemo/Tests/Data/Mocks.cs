@@ -9,7 +9,7 @@ namespace PipedriveDemo.Tests.Data
         private static readonly Faker dateFakerUK = new Faker("uk");    // Ukrainian
 
         // Constants
-        public static readonly object[] testCases =
+        public static readonly object[] validDataObjects =
         {
             new object[]
             {
@@ -22,7 +22,7 @@ namespace PipedriveDemo.Tests.Data
                     ExpectedCloseDate = "25/07/2022",
                     Phone = dataFaker.Phone.PhoneNumberFormat(),
                     Email = dataFaker.Internet.Email()
-                }, "", ""
+                }, "", ""   // here goes your email and password
             },
             new object[]
             {
@@ -31,7 +31,7 @@ namespace PipedriveDemo.Tests.Data
                     ContactPerson = dataFaker.Name.FullName(),
                     Organization = dataFaker.Company.CompanyName(),
                     Title = dataFaker.Hacker.Random.AlphaNumeric(10),
-                }, "", ""
+                }, "", ""   // here goes your email and password
             },
             new object[]
             {
@@ -44,11 +44,12 @@ namespace PipedriveDemo.Tests.Data
                     ExpectedCloseDate = "25/07/2022",
                     Phone = dateFakerUK.Phone.PhoneNumberFormat(),
                     Email = dateFakerUK.Internet.Email()
-                }, "", ""
+                }, "", ""   // here goes your email and password
             },
         };
 
-        public static List<string> errors = new List<string>()
+        // Errors
+        public static List<string> mandatoryErrors = new List<string>()
         {
             "A person or organization is required",
             "A person or organization is required",

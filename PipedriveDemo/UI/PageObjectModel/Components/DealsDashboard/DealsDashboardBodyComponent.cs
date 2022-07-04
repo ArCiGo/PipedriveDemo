@@ -11,6 +11,7 @@ namespace PipedriveDemo.UI.PageObjectModel.Components.DealsDashboard
         // Variables & Constants
         private readonly WebDriverWait wait;
         private string dealContactPerson;
+        private List<string> errores;
 
         // Elements
         private By AddDealButton => By.XPath("//button[@data-test='pipeline-add-deal']");
@@ -36,8 +37,7 @@ namespace PipedriveDemo.UI.PageObjectModel.Components.DealsDashboard
         // Actions
         public void ClickOnAddDeal()
         {
-            var addDealButton = wait.Until(ExpectedConditions.ElementIsVisible(AddDealButton));
-            addDealButton.Click();
+            wait.Until(ExpectedConditions.ElementIsVisible(AddDealButton)).Click();
         }
 
         public void FillAddDealForm(DealModel deal)
@@ -57,14 +57,18 @@ namespace PipedriveDemo.UI.PageObjectModel.Components.DealsDashboard
         {
             var contactPersonInputField = wait.Until(ExpectedConditions.ElementIsVisible(ContactPersonInputField));
             contactPersonInputField.Clear();
-            contactPersonInputField.SendKeys(contactPerson);
+
+            if(!String.IsNullOrEmpty(contactPerson) || !String.IsNullOrWhiteSpace(contactPerson))
+                contactPersonInputField.SendKeys(contactPerson);
         }
 
         private void EnterOrganization(string organization)
         {
             var organizationInputField = wait.Until(ExpectedConditions.ElementIsVisible(OrganizationInputField));
             organizationInputField.Clear();
-            organizationInputField.SendKeys(organization);
+
+            if (!String.IsNullOrEmpty(organization) || !String.IsNullOrWhiteSpace(organization))
+                organizationInputField.SendKeys(organization);
         }
 
         private void EnterTitle(string title)
@@ -72,7 +76,9 @@ namespace PipedriveDemo.UI.PageObjectModel.Components.DealsDashboard
             var titleInputField = wait.Until(ExpectedConditions.ElementIsVisible(TitleInputFIeld));
             var js = (IJavaScriptExecutor)Driver;
             js.ExecuteScript("arguments[0].value = ''", titleInputField);
-            titleInputField.SendKeys(title);
+
+            if (!String.IsNullOrEmpty(title) || !String.IsNullOrWhiteSpace(title))
+                titleInputField.SendKeys(title);
         }
 
         private void EnterValue(string value)
@@ -80,7 +86,7 @@ namespace PipedriveDemo.UI.PageObjectModel.Components.DealsDashboard
             var valueInputField = wait.Until(ExpectedConditions.ElementIsVisible(ValueInputField));
             valueInputField.Clear();
 
-            if(!String.IsNullOrEmpty(value))
+            if (!String.IsNullOrEmpty(value) || !String.IsNullOrWhiteSpace(value))
                 valueInputField.SendKeys(value);
         }
 
@@ -89,7 +95,7 @@ namespace PipedriveDemo.UI.PageObjectModel.Components.DealsDashboard
             var expectedCloseDateInputField = wait.Until(ExpectedConditions.ElementIsVisible(ExpectedCloseDateInputFIeld));
             expectedCloseDateInputField.Clear();
 
-            if(!String.IsNullOrEmpty(date))
+            if (!String.IsNullOrEmpty(date) || !String.IsNullOrWhiteSpace(date))
                 expectedCloseDateInputField.SendKeys(date);
         }
 
@@ -98,7 +104,7 @@ namespace PipedriveDemo.UI.PageObjectModel.Components.DealsDashboard
             var phoneInputField = wait.Until(ExpectedConditions.ElementIsVisible(PhoneInputField));
             phoneInputField.Clear();
 
-            if(!String.IsNullOrEmpty(phone))
+            if(!String.IsNullOrEmpty(phone) || !String.IsNullOrWhiteSpace(phone))
                 phoneInputField.SendKeys(phone);
         }
 
@@ -107,7 +113,7 @@ namespace PipedriveDemo.UI.PageObjectModel.Components.DealsDashboard
             var emailInputField = wait.Until(ExpectedConditions.ElementIsVisible(EmailInputField));
             emailInputField.Clear();
 
-            if(!String.IsNullOrEmpty(email))
+            if (!String.IsNullOrEmpty(email) || !String.IsNullOrWhiteSpace(email))
                 emailInputField.SendKeys(email);
         }        
 
@@ -149,19 +155,15 @@ namespace PipedriveDemo.UI.PageObjectModel.Components.DealsDashboard
             return new PipedriveDemoDealsItemPage(Driver);
         }
 
-        public List<string> FormErrors()
+        public List<string> MandatoryFormErrors()
         {
             ClickOnSave();
 
-            var contactPersonError = wait.Until(ExpectedConditions.ElementIsVisible(ContactPersonError)).Text;
-            var organizationError = wait.Until(ExpectedConditions.ElementIsVisible(OrganizationError)).Text;
-            var titleError = wait.Until(ExpectedConditions.ElementIsVisible(TitleError)).Text;
-
             return new List<string>()
             {
-                contactPersonError,
-                organizationError,
-                titleError
+                wait.Until(ExpectedConditions.ElementIsVisible(ContactPersonError)).Text,
+                wait.Until(ExpectedConditions.ElementIsVisible(OrganizationError)).Text,
+                wait.Until(ExpectedConditions.ElementIsVisible(TitleError)).Text
             };
         }
     }

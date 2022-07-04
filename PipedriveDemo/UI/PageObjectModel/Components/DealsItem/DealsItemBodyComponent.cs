@@ -34,8 +34,7 @@ namespace PipedriveDemo.UI.PageObjectModel.Components.DealsItem
 
         public void DeleteDeal()
         {
-            var menuSettingsButton = wait.Until(ExpectedConditions.ElementIsVisible(MenuSettingsButton));
-            menuSettingsButton.Click();
+            wait.Until(ExpectedConditions.ElementIsVisible(MenuSettingsButton)).Click();
 
             var menuSettingsOptions = Driver.FindElements(MenuSettingsOptions);
 
