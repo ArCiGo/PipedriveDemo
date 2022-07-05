@@ -8,7 +8,7 @@ The following project was made using *C#*, *NUnit*, *Selenium* and *Extent Repor
 
 ![UI Report Sample](./Assessment.png)
 
-Review the overall test plan [here](https://github.com/ArCiGo/PipedriveDemo/blob/master/Assessment.%20Test%20Plan%20(Pipedrive).pdf), and [here]() the test plan for the automation framework. Bug report can also be found [here](https://github.com/ArCiGo/PipedriveDemo/blob/master/Assessment.%20Bug%20reports%20(Pipedrive).pdf)
+Review the overall test plan [here](https://github.com/ArCiGo/PipedriveDemo/blob/master/Assessment.%20Test%20Plan%20(Pipedrive).pdf), and [here](https://github.com/ArCiGo/PipedriveDemo/blob/master/Automation.%20Test%20Plan%20(Pipedrive).md) the test plan for the automation framework. Bug report can also be found [here](https://github.com/ArCiGo/PipedriveDemo/blob/master/Assessment.%20Bug%20reports%20(Pipedrive).pdf)
 
 ## Tools ⚙️
 
